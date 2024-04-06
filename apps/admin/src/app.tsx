@@ -8,7 +8,6 @@ import { AuthContext, signIn, signOut, useAppDispatch, useAppSelector, useLocati
 import { MenuData } from '@/common/mock'
 import { ADMIN } from 'utils'
 import { Settings } from 'utils'
-import { setMenu } from 'store'
 
 import { defaultRoutes } from './routes'
 
