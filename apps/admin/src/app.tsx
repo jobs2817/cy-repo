@@ -9,7 +9,7 @@ import { MenuData } from '@/common/mock'
 import { ADMIN } from 'utils'
 import { Settings } from 'utils'
 
-import { defaultRoutes } from './routes'
+import { baseRouterList } from './routes'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -18,25 +18,13 @@ function App() {
     user: { token, menu },
   } = useAppSelector((state) => state)
 
-  const cloneDefaultRoutes = cloneDeep(defaultRoutes)
+  const cloneDefaultRoutes = cloneDeep(baseRouterList)
 
   useLocationListen((r) => {
     document.title = `${Settings.title}: ${r.pathname.replace('/', '')}`
   })
 
   const element = useRoutes(cloneDefaultRoutes)
-
-  // useEffect(() => {
-  //   /**
-  //    * @deprecated 权限菜单控制
-  //    * 以下简单的示例展示管理员和普通用户的菜单渲染
-  //    */
-  //   if ((token as unknown as { username: string })?.username === ADMIN) {
-  //     dispatch(setMenu([...MenuData.admin]))
-  //   } else {
-  //     dispatch(setMenu([...MenuData.user]))
-  //   }
-  // }, [token])
 
   return <AuthContext.Provider value={{ signIn, signOut }}>{element}</AuthContext.Provider>
 }

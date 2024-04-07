@@ -1,16 +1,23 @@
 import { DashboardOutlined } from '@ant-design/icons'
 import { Alert, Button, Result, Spin } from 'antd'
-import { lazy, Suspense } from 'react'
+import { Children, lazy, Suspense } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 
 import { TOKEN, getStorage } from 'utils'
 import Layout from '../components/Layout/index'
-import OutletLayoutRouter from '../components/OutletLayoutRouter'
-import type { MenuItem } from '../components/Layout/layout'
 import Dashboard from '@/views/dashboard'
 import ErrorPage from '@/views/error-page'
 import Login from '@/views/login'
-import MemberCenter from '@/views/member-center/pages/list'
+// 基础设置
+import BasicSettingRoutes from '@/views/basic-setting/routes/index'
+// 门店管理
+import StoreManage from '@/views/store-management/routes/index'
+// 商品管理
+import CommodityManagement from '@/views/commodity-management/routes/index'
+// 订单管理
+import OrderManagement from '@/views/order-management/routes'
+// 会员管理
+import MemberManagement from '@/views/member/routes'
 
 const Permissions = ({ children }: any) => {
   const token = getStorage(TOKEN)
@@ -18,20 +25,11 @@ const Permissions = ({ children }: any) => {
 }
 
 export const baseRouterList = [
-  {
-    label: 'Dashboard',
-    key: 'dashboard',
-    path: 'dashboard',
-    icon: <DashboardOutlined />,
-    filepath: 'pages/dashboard/index.tsx',
-  },
-  {
-    label: '会员中心',
-    key: 'member',
-    path: 'memberCenter',
-    icon: <DashboardOutlined />,
-    filepath: 'pages/dashboard/index.tsx',
-  },
+  ...BasicSettingRoutes,
+  ...StoreManage,
+  ...CommodityManagement,
+  ...OrderManagement,
+  ...MemberManagement,
 ]
 
 export const defaultRoutes: any = [
@@ -64,17 +62,6 @@ export const defaultRoutes: any = [
             />
           </ErrorPage>
         ),
-      },
-    ],
-  },
-  {
-    path: 'memberCenter',
-    element: <Permissions>{<Layout />}</Permissions>,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: 'list',
-        element: <MemberCenter />,
       },
     ],
   },
