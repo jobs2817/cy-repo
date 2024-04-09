@@ -16,7 +16,7 @@ const basicSetting = [
       {
         label: '销售区域',
         key: 'salesArea',
-        path: 'basicSetting/salesArea',
+        path: '/basicSetting/salesArea',
         icon: <DashboardOutlined />,
         element: <SalesArea />,
       },
